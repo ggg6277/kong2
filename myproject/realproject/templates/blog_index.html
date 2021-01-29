@@ -1,0 +1,42 @@
+{% extends "blog.html" %}
+{% block title %}Blog Index{% endblock %}
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    <h1>Blog Index</h1>
+    <hr>
+    {% for post in page_obj %}
+    {{ post.serial_number }} &nbsp&nbsp
+    <h2><a href="{% url 'blog_detail' post.pk %}">{{ post.title }}</a> </h2>
+    <small>
+        {{ post.created_on.date }} |&nbsp;
+        Categories:&nbsp;
+        {% for category in post.categories.all %}
+        <a href="{% url 'blog_category' category.name %}">
+            {{ category.name }}
+        </a>&nbsp;
+        {% endfor %}
+    </small>
+    <p>{{ post.body | slice:":400" }}...</p>
+    {% endfor %}
+    <form action="{%url 'blog_write' %}">
+        {% csrf_token %}
+        <input type="submit" value="글쓰기">
+    </form>
+</div>
+
+<div style="margin:0 auto; text-align:center">
+    <span class = "step-links">
+        {% if page_obj.has_previous %}
+        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }}
+        </span>
+
+        {% if page_obj.has_next %}
+        <a href="?page={{ page_obj.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

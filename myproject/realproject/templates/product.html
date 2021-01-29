@@ -1,0 +1,24 @@
+{% extends "blog.html" %}
+{% block title %}<title> Product </title>{% endblock %}
+{% block content %}
+
+<div>
+   <form action="{% url 'productdetail' %}" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.code }}
+        </div>
+        <div class="form-group">
+            {{ form.product }}
+        </div>
+     <div class="form-group">
+            {{ form.price }}
+        </div>
+     <div class="form-group">
+            {{ form.exp_date }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+</div>
+{% endblock %}
