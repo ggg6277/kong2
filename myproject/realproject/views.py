@@ -1,3 +1,4 @@
+from django.contrib.auth.forms import UserCreationForm
 from django.core.paginator import Paginator
 from django.shortcuts import render
 
@@ -185,4 +186,16 @@ def album_detail(request, pk):
        "tests": tests,
     }
     return render(request, 'album_detail.html', context)
+
+def signup(request):
+    if request.method=="POST":
+        form= UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            return redirect('index')
+        return render (request, 'signup.html', ['form': form])
 

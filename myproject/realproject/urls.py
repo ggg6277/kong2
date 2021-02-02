@@ -22,6 +22,7 @@ urlpatterns = [
     path('blog_write/', views.blog_write, name='blog_write'),
     path('blogs/<category>/', views.blog_category, name='blog_category'),
     path('album/', views.album, name='album'),
-    path('album_detail/<int:pk>', views.album_detail, name='album_detail')
+    path('album_detail/<int:pk>', views.album_detail, name='album_detail'),
+    path('signup/', views.signup, name='signup')
 
 ]
